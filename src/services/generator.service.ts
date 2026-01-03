@@ -23,7 +23,14 @@ export class GeneratorService {
   private genAI: GoogleGenAI;
 
   constructor() {
-    this.genAI = new GoogleGenAI({ apiKey: process.env['API_KEY'] || '' });
+    // The key is loaded from the .env file in the root directory
+    const apiKey = process.env['API_KEY'] || '';
+    
+    if (!apiKey) {
+      console.warn('ThumbGenius: API_KEY is missing. Please add it to the .env file in the root directory.');
+    }
+
+    this.genAI = new GoogleGenAI({ apiKey });
   }
 
   /**
